@@ -1,0 +1,87 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Edit Profile
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="jumbotron jumbotron-write p-4">
+                <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-change-password-tab" data-toggle="pill" href="#pills-change-password" role="tab" aria-controls="pills-change-password" aria-selected="true">Change Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-delete-account-tab" data-toggle="pill" href="#pills-delete-account" role="tab" aria-controls="pills-delete-account" aria-selected="false">Delete Account</a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-change-password" role="tabpanel" aria-labelledby="pills-change-password-tab">
+                        <strong class="poem-label">Change Password?</strong>
+                        <p style="font-size: 14px; color: red;">You'll have to log in again!</p>
+                        <form action="change_password" method="POST" class="mt-2">
+                            {% csrf_token %}
+                            <!-- Current Password -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Current Password" autofocus required>
+                                    <div class="input-group-append">
+                                        <span class="btn btn-red" onclick="show_hide('current_password', 'fa1');" class="input-group-text"><i class="fa fa-eye fa1"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- New Password -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password" required>
+                                    <div class="input-group-append">
+                                        <span class="btn btn-red" onclick="show_hide('new_password', 'fa2');" class="input-group-text"><i class="fa fa-eye fa2"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Confirm Password" required>
+                                    <div class="input-group-append">
+                                        <span class="btn btn-red" onclick="show_hide('confirm_password', 'fa2');" class="input-group-text"><i class="fa fa-eye fa2"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Change password button -->
+                            <button type="submit" class="btn btn-outline-red">Change</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-delete-account" role="tabpanel" aria-labelledby="pills-delete-account-tab">
+                        <strong class="poem-label">Delete Account?</strong>
+                        <p style="font-size: 14px; color: red;">It'll also delete your poems, ratings, and reviews!</p>
+                        <form action="delete_account" method="POST" class="mt-2">
+                            {% csrf_token %}
+                            <!-- Current Password -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" autofocus required>
+                                    <div class="input-group-append">
+                                        <span class="btn btn-red" onclick="show_hide('password', 'fa1');" class="input-group-text"><i class="fa fa-eye fa1"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- Delete account button -->
+                            <button type="submit" class="btn btn-outline-red">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+{% endblock %}

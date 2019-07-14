@@ -1,0 +1,120 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Home
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+<script>
+    // Get ratings
+    function getRatingsOnFeed(avg_user_rating, id) {
+
+        // Get percentage
+        const starPercentage = (avg_user_rating / 5) * 100;
+
+        // Round to nearest 10
+        const starPercentageRounded = `${Math.round(starPercentage / 10) * 10.11}%`;
+
+        // Set width of stars-inner to percentage
+        document.querySelector(`.${id} .stars-inner`).style.width = starPercentageRounded;
+    }
+</script>
+    <!-- Search bar -->
+    <div class="row fade-animation" style="border-style: none;">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8"></form>
+            <form action="/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-group">
+                        <datalist id="search_suggest">
+                            {% for poet in poets %}
+                                {% if poet.username != "admin" %}
+                                    <option>{{ poet.user.username }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            {% for poem in poems1 %}
+                                <option>{{ poem.title }}</option>
+                            {% endfor %}
+                        </datalist>
+                        <input type="text" name="q" id="q" autocomplete="off" class="form-control" list="search_suggest" placeholder="Search Poem by Poem Title/Poet..." required>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-red">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Ensure if poem is present -->
+    {% if not poems %}
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-sm-1"></div>
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="jumbotron jumbotron-write p-5">
+                <h4><strong>Wanna be a famous poet?</strong></h4>
+                <h6>Start writing a poem now!</h6>
+                <hr>
+                <a href="/write" class="btn btn-outline-red">Write</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        {% for poem in poems %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card-deck">
+                    <div class="card fade-animation">
+                        <div class="card-body text-center">
+                            <strong>
+                                <label class="poem-label">POEM</label>
+                                <p class="poem-title">{{ poem.title }}</p>
+                            </strong>
+                            <h6 style="margin-top: -10px; margin-bottom: 5px;">By: <a href="/profile/{{poem.user}}"> {{ poem.user }}</a></h6>
+                            <strong style="font-size: 17.5px; color:red;">{{ poem.average_rating }}</strong><label class="posted" style="font-size: 15px;">/5.0</label>
+                            <div class="poem{{poem.id}}" style="margin-top: -7px;">
+                                <div class="stars-outer" title="{{ poem.average_rating }}/5.0&#013;Total Ratings: {{ poem.total_ratings }}">
+                                    <div class="stars-inner">
+                                        <script>getRatingsOnFeed("{{ poem.average_rating }}", "poem{{poem.id}}");</script>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <div class="posted">{{ poem.date }}</div>
+                                <label class="poem-data">{{ poem.poem|truncatechars:75 }}</label>
+                            </div>
+                            <hr>
+                            <a href="/read/{{poem.id}}" class="btn btn-outline-red">More</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {%endfor%}
+    </div>
+    <div class="pagination alert alert-light">
+        <span class="step-links">
+            {% if poems.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ poems.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ poems.number }} of {{ poems.paginator.num_pages }}.
+            </span>
+    
+            {% if poems.has_next %}
+                <a href="?page={{ poems.next_page_number }}">next</a>
+                <a href="?page={{ poems.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+    
+{% endblock %}

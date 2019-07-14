@@ -1,0 +1,47 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Log In
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+
+<div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="jumbotron jumbotron-main shadow">
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <h4>Log In</h4>
+                    <hr>
+                    <!-- Username -->
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                            <div class="input-group-append">
+                                <span class="btn btn-red" onclick="show_hide('password', 'fa');" class="input-group-text"><i class="fa fa-eye"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Log In button -->
+                    <button type="submit" class="btn btn-outline-red">Log In</button>
+                </form>
+                <div class="row forgot-password">
+                    <a href="/reset">Forgot password?</a>
+                </div>
+                
+                <hr>
+                <label>New user?</label>
+                <a href="{% url 'register' %}">Register</a> now!
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

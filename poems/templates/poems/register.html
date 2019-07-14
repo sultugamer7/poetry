@@ -1,0 +1,64 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Register
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+    
+    <div class="row">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="jumbotron jumbotron-main shadow">
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+                    <h4>Register</h4>
+                    <hr>
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required autofocus>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" required>
+                    </div>
+                    <!-- Email -->
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="E-Mail Address" required>
+                    </div>
+                    <!-- Username -->
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <!-- Password -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="password" id="password1" name="password1" class="form-control" placeholder="Password" required>
+                            <div class="input-group-append">
+                                <span class="btn btn-red" onclick="show_hide('password1', 'fa1');" class="input-group-text"><i class="fa fa-eye fa1"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" required>
+                            <div class="input-group-append">
+                                <span class="btn btn-red" onclick="show_hide('password2', 'fa2');" class="input-group-text"><i class="fa fa-eye fa2"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Register button -->
+                    <button type="submit" class="btn btn-outline-red">Register</button>
+                </form>
+                <hr>
+                <label>Have an account?</label>
+                <a href="{% url 'login' %}">Log In</a>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

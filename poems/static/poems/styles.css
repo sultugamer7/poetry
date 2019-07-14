@@ -1,0 +1,393 @@
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: 100%;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+    background-color: rgba(255, 0, 0, 0.08);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#content-wrap {
+    padding-bottom: 3.5rem;    /* Footer height */
+}
+
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: red;
+    text-align: center;
+    vertical-align: middle;
+    height: 3.5rem;            /* Footer height */
+
+    animation-name: fade;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+body {
+    background: url("bg.png");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.jumbotron-main {
+    padding: 12%;
+    background-image: url(jumbo-bg.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    position: relative;
+    animation-name: fade;
+    animation-duration: 1.75s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes move {
+    0% {
+        opacity: 1;
+        height: 75%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    25% {
+        opacity: 1;
+        height: 75%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    70% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        height: 75%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+        padding: 0px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+}
+
+.popup {
+    position: relative;
+    animation-name: move;
+    animation-duration: 2.7s;
+    animation-fill-mode: forwards;
+    background: white;
+    color: red;
+    font-weight: 600;
+    border-color: red;
+    border-style: dotted;
+}
+
+.poem-label {
+    color: red;
+    font-size: 14px;
+}
+
+.poem-title {
+    font-size: 18px;
+    margin-top: -8px;
+}
+
+ .posted {
+    font-size: 12px;
+    color: rgba(255, 0, 0, 0.6);
+    font-weight: 600;
+ }
+
+.explore {
+    background-color: red;
+    color: white;
+    border-radius: 0px;
+    animation-name: fade;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.explore-poems {
+    color: white;
+    text-decoration: underline;
+    font-size: 17px;
+
+    transition: font-size 0.15s;
+    -webkit-transition: font-size 0.15s;
+}
+
+.explore-poems:hover {
+    font-size: 20px;
+    transition: font-size 0.15s;
+    -webkit-transition: font-size 0.15s;
+    color: white;
+}
+
+.btn-outline-red {
+    border-color: red;
+    background-color: transparent;
+    color: red;
+}
+
+.btn-outline-red:hover {
+    background-color: red;
+    color: white;
+}
+
+a {
+    color: red;
+}
+
+a:hover {
+    color: red;
+}
+
+.navbar {
+    animation-name: fade;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.fade-animation {
+    animation-name: fade;
+    animation-duration: 2.3s;
+    animation-fill-mode: forwards;
+    border-style: solid;
+    border-color: orangered;
+    border-width: 0.9px;
+}
+
+.end {
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+
+    animation-name: fade;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.btn-red {
+    border-color: lightgray;
+    background-color: transparent;
+    color: red;
+}
+
+.btn-red:hover {
+    border-color: red;
+    background-color: red;
+    color: white;
+}
+
+.poem-data {
+    white-space: pre-wrap;
+    font-size: 15px;
+    height: 100px;
+}
+
+.jumbotron-write {
+    padding: 12%;
+    background-color: white;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: red;
+    position: relative;
+    animation-name: fade;
+    animation-duration: 1.75s;
+    animation-fill-mode: forwards;
+}
+
+.form-center {
+    text-align: center;
+}
+
+/* Custom Scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: auto;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(255, 146, 146);
+    border-radius: 1px;
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: red;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.forgot-password {
+    display: block;
+    font-size: 14px;
+    margin-top: 7px;
+    margin-bottom: -5px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: white;
+    background-color: red;
+}
+
+.nav-pills {
+    font-size: 13px;
+}
+
+.checked {
+    color: orange;
+}
+
+.unchecked {
+    color: rgba(255, 165, 0, 0.5);
+}
+
+.rate {
+    color: rgba(255, 165, 0, 0.5);
+    cursor: pointer;
+
+    transition: font-size 0.1s;
+    -webkit-transition: font-size 0.1s;
+}
+
+.rate-check {
+    color: orange;
+    font-size: 19px;
+    cursor: pointer;
+
+    transition: font-size 0.1s;
+    -webkit-transition: font-size 0.1s;
+}
+
+.stars-outer {
+    position: relative;
+    display: inline-block;
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+  
+.stars-outer::before {
+    content: "\f005   \f005   \f005   \f005   \f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: rgba(255, 165, 0, 0.5);
+}
+  
+.stars-inner::before {
+    content: "\f005   \f005   \f005   \f005   \f005";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: orange;
+}
+
+.pagination {
+    text-align: center;
+    display: block;
+    border-style: solid;
+    border-color: red;
+    border-width: 0.5px;
+
+    animation-name: fade;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+.logo {
+    width: 150px;
+
+    transition: width 0.15s;
+    -webkit-transition: width 0.15s;
+}
+
+.logo:hover {
+    width: 170px;
+
+    transition: width 0.15s;
+    -webkit-transition: width 0.15s;
+}
+
+.review {
+    margin-top: -25px;
+    font-size: 14.3px;
+    font-family: sans-serif;
+    white-space: pre-line;
+}
+
+.badge-zero {
+    color: red;
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.badge-nonzero {
+    color: white;
+    border-color: red;
+    border-style: solid;
+    background-color: red;
+    border-width: 1px;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <!-- Bootstrap's CSS & Responsive meta tag -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <!-- Custom CSS, JS, and Icon -->
+        <link rel="stylesheet" href="{% static 'poems/styles.css' %}">
+        <script src="{% static 'poems/script.js' %}"></script>
+        <link href="{% static 'poems/icon.ico' %}" rel="icon">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        
+        <!-- Title -->
+        <title>Poetry: {% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        <div id="page-container">
+            <div id="content-wrap">
+                <nav class="navbar navbar-expand-md fixed-top navbar-light" style="background-color: white;">
+                    <a class="navbar-brand" href="/"><img class="logo" src="/static/poems/logo.png"></a>
+                    <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                        <span class="navbar-toggler-icon"></span>
+                        {% if user.is_authenticated %}
+                            {% if notif_count == 0 %}
+                                <span class="badge badge-zero">{{ notif_count }}</span>
+                            {% else %}
+                                <span class="badge badge-nonzero">{{ notif_count }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbar">
+                        {% if user.is_authenticated %}
+                            <ul class="navbar-nav ml-auto mt-0" style="font-size: 16.5px;">
+                                <li class="nav-item">
+                                    {% if notif_count == 0 %}
+                                    <a class="nav-link" href="/notification" style="color: red;" title="New Notifications: {{ notif_count }}"><i class="far fa-bell"></i> <span class="badge badge-zero">{{ notif_count }}</span></a></h6>
+                                    {% elif notif_count == 1%}
+                                    <a class="nav-link" href="/notification" style="color: red;" title="New Notification: {{ notif_count }}"><i class="fas fa-bell"></i> <span class="badge badge-nonzero">{{ notif_count }}</span></a></h6>
+                                    {% else %}
+                                    <a class="nav-link" href="/notification" style="color: red;" title="New Notifications: {{ notif_count }}"><i class="fas fa-bell"></i> <span class="badge badge-nonzero">{{ notif_count }}</span></a></h6>
+                                    {% endif %}
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile/{{user}}" style="color: red;" title="Profile">Profile <i class="fas fa-user-circle"></i></a></h6>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'write' %}" style="color: red;" title="Write">Write <i class="fas fa-feather-alt"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}" style="color: red;" title="Log Out">Log Out <i class="fas fa-sign-out-alt"></i></a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="navbar-nav ml-auto mt-2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'register' %}" style="color: red;" title="Register">Register <i class="fas fa-user-edit"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}" style="color: red;" title="Log In">Log In <i class="fas fa-sign-in-alt"></i></a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+                
+                <div style="margin-top: 77px;"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-deck">
+                            <div class="card explore">
+                                <div class="card-body text-center">
+                                    <strong>
+                                        <h1 class="card-text" style="font-weight: bold;">POEMS</h1>
+                                        <h5>Begin in delight, end in wisdom.</h5>
+                                        {% if user.is_authenticated %}
+                                            <hr>
+                                            <a href="/explore" class="explore-poems">Explore Poems <i class="fas fa-search"></i></a>
+                                        {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <main class="container p-5">
+                    {% if messages %}
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4">
+                                {% for message in messages %}
+                                    <div class="alert alert-danger {% if message.tags %}alert-{{ message.tags }}{% endif %} popup" role="alert">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% block main %}{% endblock %}
+                </main>
+
+                <div class="end p-1">
+                    <br>
+                    <h1 style="font-weight: bold;"><img src="/static/poems/logo1.png" style="width: 200px;"></h1>
+                    <h5>Rhythmical creation of beauty in words.</h5>
+                    <br>
+                </div>
+            </div>
+            
+            <footer id="footer">
+                <label style="padding: 15px;">Developed with ❤️ by <a href="https://sultugamer7.github.io/portfolio/" target="_blank" style="text-decoration: underline;">Sultan Kazi.</a></label>
+            </footer>
+
+        </div>
+    </body>
+</html>

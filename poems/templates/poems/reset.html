@@ -1,0 +1,27 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Reset Password
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+
+    <div class="row">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8 jumbotron jumbotron-write p-4">
+                <h3><strong class="poem-label">FORGOT PASSWORD?</strong></h3>
+                <p>Enter your E-mail address to reset your password.</p>
+                <form action="/reset" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="email" name="email" id="email" placeholder="E-mail address" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-red">Reset</button>
+                </form>
+        </div>
+    </div>
+    
+{% endblock %}

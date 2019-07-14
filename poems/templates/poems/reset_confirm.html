@@ -1,0 +1,41 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Reset Password (Confirm)
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+
+    <div class="row">
+        <div class="col-lg-4 col-md-3 col-sm-2"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8 jumbotron jumbotron-write p-4">
+            <form action="/reset/{{username}}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="username" id="username" value="{{username}}">
+                <!-- Password -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" id="password1" name="password1" class="form-control" placeholder="Password" required>
+                        <div class="input-group-append">
+                            <span class="btn btn-red" onclick="show_hide('password1', 'fa1');" class="input-group-text"><i class="fa fa-eye fa1"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" required>
+                        <div class="input-group-append">
+                            <span class="btn btn-red" onclick="show_hide('password2', 'fa2');" class="input-group-text"><i class="fa fa-eye fa2"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-red">Reset</button>
+            </form>
+        </div>
+    </div>
+    
+{% endblock %}

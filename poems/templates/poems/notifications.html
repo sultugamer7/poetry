@@ -1,0 +1,110 @@
+<!-- Extend base.html file -->
+{% extends "poems/base.html" %}
+
+<!-- Title -->
+{% block title %}
+    Notifications
+{% endblock%}
+
+<!-- Body -->
+{% block main %}
+    {% if not unread_notifications and not read_notifications %}
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="card-deck">
+                <div class="card fade-animation">
+                    <div class="card-body">
+                        <h2><strong style="color: red;">No Notifications!</strong></h2>
+                        <hr>
+                        <h4><strong>Wanna be a famous poet?</strong></h4>
+                        <h6>Start writing a poem now!</h6>
+                        <hr>
+                        <a href="/write" class="btn btn-outline-red">Write</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if unread_notifications %}
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="card-deck">
+                    <div class="card fade-animation">
+                        <div class="card-body" style="display: block; text-align: left;">
+                            <strong class="badge badge-nonzero" style="font-size: 16px;">New Notifications!</strong>
+                            {% for notification in unread_notifications %}
+                                <hr style="border-color: rgba(255, 0, 0, 0.6); border-width: 0.8px;">
+                                {% if notification.notification_type == "Rate" %}
+                                    <strong><a href="/profile/{{notification.sender}}">{{notification.sender}}</a></strong>
+                                    rated <strong>{{notification.notification_data}}</strong> on your poem:
+                                    <strong><a href="/read/{{notification.poem.id}}">'{{notification.poem.title}}'</a></strong>
+                                {% else %}
+                                    <strong><a href="/profile/{{notification.sender}}">{{notification.sender}}</a></strong>
+                                    added a review on your poem:
+                                    <strong><a href="/read/{{notification.poem.id}}">'{{notification.poem.title}}'</a></strong>
+                                    - <strong>'{{notification.notification_data}}'</strong>
+                                {% endif %}
+                                <div class="row pl-3" style="display: block; text-align: left; font-size: 12px; color: rgba(255, 0, 0, 0.7); font-weight: 500;">
+                                    {{notification.date}}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+    {% if read_notifications %}
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <div class="card-deck">
+                    <div class="card fade-animation">
+                        <div class="card-body" style="display: block; text-align: left;">
+                            <strong class="badge badge-nonzero" style="font-size: 16px;">Old Notifications!</strong>
+                            {% for notification in read_notifications %}
+                                <hr style="border-color: rgba(255, 0, 0, 0.6); border-width: 0.8px;">
+                                {% if notification.notification_type == "Rate" %}
+                                    <strong><a href="/profile/{{notification.sender}}">{{notification.sender}}</a></strong>
+                                    rated <strong>{{notification.notification_data}}</strong> on your poem:
+                                    <strong><a href="/read/{{notification.poem.id}}">'{{notification.poem.title}}'</a></strong>
+                                {% else %}
+                                    <strong><a href="/profile/{{notification.sender}}">{{notification.sender}}</a></strong>
+                                    added a review on your poem:
+                                    <strong><a href="/read/{{notification.poem.id}}">'{{notification.poem.title}}'</a></strong>
+                                    - <strong>'{{notification.notification_data}}'</strong>
+                                {% endif %}
+                                <div class="row pl-3" style="display: block; text-align: left; font-size: 12px; color: rgba(255, 0, 0, 0.7); font-weight: 500;">
+                                    {{notification.date}}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="pagination alert alert-light">
+                    <span class="step-links">
+                        {% if read_notifications.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ read_notifications.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ read_notifications.number }} of {{ read_notifications.paginator.num_pages }}.
+                        </span>
+                
+                        {% if read_notifications.has_next %}
+                            <a href="?page={{ read_notifications.next_page_number }}">next</a>
+                            <a href="?page={{ read_notifications.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br>
+    {% endif %}
+{% endblock %}
